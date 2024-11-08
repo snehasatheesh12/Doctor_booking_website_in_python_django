@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="breadcrumbs overlay">
+	<div class="container">
+		<div class="bread-inner">
+			<div class="row">
+				<div class="col-12">
+					<h2>Portfolio Details</h2>
+					<ul class="bread-list">
+						<li><a href="index.html">Home</a></li>
+						<li><i class="icofont-simple-right"></i></li>
+						<li class="active">Portfolio Details</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<section class="pf-details section">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="inner-content">
+					<div class="image-slider">
+						<div class="pf-details-slider">
+							<img src="{% static 'assets/img/call-bg.jpg' %}" alt="#">
+						</div>
+					</div>
+					<div class="date">
+						<ul>
+							<li><span>Category :</span> Heart Surgery</li>
+							<li><span>Date :</span> April 20, 2019</li>
+							<li><span>Client :</span> Suke Agency</li>
+							<li><span>Ags :</span> Typo</li>
+						</ul>
+					</div>
+					<div class="body-text">
+						<h3>Welcome to [Hospital Name]</h3>
+						<p>
+					 At [Hospital Name], we are dedicated to providing exceptional healthcare services to our community. Our highly trained medical professionals are committed to ensuring the best possible care for every patient. With a focus on compassionate treatment and the latest medical advancements, we strive to make every visit comfortable and effective.
+
+                     We offer a wide range of services, from preventive care and routine check-ups to advanced medical procedures and emergency services. Our goal is to promote the health and well-being of our patients by offering personalized care plans and state-of-the-art technology. Whether you're here for a consultation, surgery, or ongoing treatment, you can trust us to deliver the highest standard of care.
+
+                     At [Hospital Name], we understand the importance of holistic healthcare, which is why we offer wellness programs, rehabilitation services, and health education initiatives to ensure that our patients maintain a healthy lifestyle beyond the hospital walls. We believe that healthcare is a partnership between the medical team and the patient, and we are here to support you every step of the way.
+
+                    Thank you for trusting [Hospital Name] with your healthcare needs. Together, we are building a healthier future for all.
+						</p>
+						<br>
+						<h4>Our Commitment to Excellence
+						</h4>
+						<br>
+						<p>
+							We believe that every patient deserves personalized, holistic care. From the moment you step through our doors, you become part of a healthcare journey designed to prioritize your individual needs. Whether it’s a routine check-up, diagnostic testing, or advanced surgical procedures, our team is here to support you every step of the way. Our medical staff is made up of experienced doctors, nurses, and specialists who work together to provide the best treatment tailored to your condition.
+
+Our commitment to innovation and excellence extends to our use of the latest medical technology and treatment protocols. We are continuously updating our equipment and methods to ensure that our patients benefit from the most advanced medical care available. From cutting-edge imaging technologies to minimally invasive surgeries, we strive to offer treatments that not only improve outcomes but also enhance patient comfort and recovery times.
+						</p>
+						<h4></h4>
+						<div class="share">
+							<h4>Share Now -</h4>
+							<ul>
+								<li><a href="#"><i class="fa fa-facebook-official" aria-hidden="true"></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+								<li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

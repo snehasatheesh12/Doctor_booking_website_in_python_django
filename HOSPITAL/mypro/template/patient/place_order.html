@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<section class="product-cart product footer-padding">
+    <div class="container">
+        <div class="col-md-6">
+            <div class="cart-section">
+                <div class="card">
+                    <h5 class="card-header">Billing Address</h5>
+                    <div class="card-body">
+                      <p class="card-text mb-0">{{order.full_name}}</p>
+                      <p class="card-text mb-0">{{order.full_address}}</p>
+                      <p class="card-text mb-0">{{order.city}},{{order.state}}</p>
+                      <p class="card-text mb-0">{{order.country}}</p>
+                      <p class="card-text mb-0">{{order.email}}</p>
+                      <p class="card-text mb-0">{{order.phone}}</p>
+                    </div>
+                  </div>
+                  <br>
+                  <br>
+                  <div class="card">
+                    <h5 class="card-header">Payment Method</h5>
+                    <div class="card-body">
+                        <p>paypal</p>
+                    </div>
+                  </div>
+                  <br>
+                  <br>
+                  <div class="card">
+                    <h5 class="card-header">Booking Details</h5>
+                    <div class="card-body">
+                      <p class="card-text mb-0">Doctor : {{appointment.doctorName}}</p>
+                      <p class="card-text mb-0">Booking Date : {{appointment.appointmentDate}}</p>
+                      <p class="card-text mb-0">Booking Time :{{appointment.appointmentTime}}</p>
+                      <p class="card-text mb-0">Booking No: {{order.booking_number}}</p>
+                    </div>
+                  </div>
+                  <br>
+                  <br>
+                <p>Total amount to pay: ${{ order.booking_total }}</p>
+            </div>
+            <div id="paypal-button-container"></div>
+
+        </div>
+
+    </div>
+
+</section>
+<br>
+<br>
+<br>
+<br>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=ARQ65oYr2XSWyrI14W-miP4nXCjA496XZyBRPzxUY8W1GJhiaGH5kWeJwIwnVNbe1qij70XxZsdMBxmm"></script> <!-- Include PayPal SDK -->
+
+
+
+<script>
+    var amountToCharge ='{{ order.booking_total|floatformat:2 }}';
+    
+    function sendTransactionDetails(orderData) {
+        fetch('/payment/place_order/api/transaction/receive/', { 
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(orderData) 
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        }).then(data => {
+            console.log('Transaction details sent successfully:', data);
+        }).catch(error => {
+            console.error('Error sending transaction details:', error);
+        });
+    }
+
+    paypal.Buttons({
+        style: {
+            color: 'blue',
+            shape: 'pill',
+            label: 'pay',
+            height: 40
+        },
+        createOrder: function(data, actions) {
+            return fetch('/payment/api/paypal/order/create/', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    amount: amountToCharge
+                })
+            }).then(function(res) {
+                return res.json();
+            }).then(function(orderData) {
+                return orderData.id;
+            });
+        },
+        onApprove: function(data, actions) {
+            return fetch(`/payment/api/paypal/order/${data.orderID}/capture/`, {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({})
+            }).then(function(res) {
+                return res.json();
+            }).then(function(orderData) {
+                sendTransactionDetails(orderData);
+                window.alert('Transaction completed successfully! Transaction ID: ' + orderData.purchase_units[0].payments.captures[0].id);
+            });
+        }
+    }).render('#paypal-button-container');
+</script>
+{% endblock %}

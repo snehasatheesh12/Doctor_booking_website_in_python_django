@@ -1,0 +1,55 @@
+{% extends 'admin/admin_base.html' %}
+{% load static %}
+{% block content %}  
+  <body>
+  <div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+   {% include 'admin/admin_nav.html'%}
+
+   <div class="col-lg-10 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Bordered table</h4>
+        <p class="card-description"> Add class <code>.table-bordered</code>
+        </p>
+        {% if doctors %}
+
+        <div class="table-responsive pt-3">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Profile Picture</th>
+                <th>department</th>
+                <th>Approve</th>
+                <th>Reject</th>
+    
+              </tr>
+            </thead>
+            <tbody>
+              {% for d in doctors %}
+              
+              <tr>
+                <td> {{d.user.first_name}}</td>
+                <td><img src="{{ d.profile_pic.url }}" alt="Profile Pic" height="80px" width="80px" /></td>
+                <td>{{d.department}}</td>
+                <td><a class="btn btn-primary btn-xs" href="{% url 'approve_doctor_view' d.id  %}">approve</span></a></td>
+                <td><a class="btn btn-danger btn-xs" href="{% url 'reject_doctor_view' d.id  %}">Reject</a> </td>
+              </tr>
+              {% endfor %}
+            
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <h2>No Pending Doctors Available</h2>
+        <p>Thank you for your understanding! We are continuously working to ensure that our team is filled with qualified professionals.</p>
+      {% endif %}
+    
+      </div>
+    </div>
+  </div>
+  </body>
+
+
+  {% endblock %}

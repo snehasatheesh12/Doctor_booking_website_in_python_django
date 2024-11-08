@@ -1,0 +1,93 @@
+{% extends 'patient/patient_base.html' %}
+{% load static %}
+{% block content %}  
+<body>
+    <style>
+        .badge-opacity-primary {
+            background-color: #007bff; 
+            color: white; 
+            padding: 0.5em 1em; 
+            border-radius: 0.25rem; 
+        }
+        .badge-opacity-warning {
+            background-color: orangered; 
+            color: white; 
+            padding: 0.5em 1em; 
+            border-radius: 0.25rem; 
+        }
+        .badge-opacity-success {
+            background-color: green; 
+            color: white; 
+            padding: 0.5em 1em; 
+            border-radius: 0.25rem; 
+        }
+    </style>
+  <div class="container-scroller">
+   {% include 'patient/patient_nav.html'%}
+
+   <div class="col-lg-10 grid-margin stretch-card">
+    <div class="card">
+        {% if appointments %}
+
+      <div class="card-body">
+        <h4 class="card-title">Appointments</h4>
+        <div class="table-responsive pt-3">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Doctor</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Symptoms</th>
+                <th>Status</th>
+                <th>Payment</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for appointment in appointments %}
+              <tr>
+                <td>{{ appointment.doctorName }}</td>
+                <td>{{ appointment.appointmentDate }}</td>
+                <td>{{ appointment.appointmentTime }}</td>
+                <td>{{ appointment.symptoms }}</td>
+                <td>
+                    <div class="badge 
+                        {% if appointment.status %} 
+                            badge-opacity-primary
+                        {% else %}
+                            badge-opacity-warning
+                        {% endif %}">
+                        
+                        {% if appointment.status %}
+                            Approved
+                        {% else %}
+                            Pending
+                        {% endif %}
+                    </div>
+                </td>
+                <td>
+                    {% if appointment.status %}
+                        {% if order.is_booked %}
+                            <div class="badge badge-opacity-success">Payment Completed</div>
+                        {% else %}
+                            <a href="{% url 'place_order' appointment.id %}">
+                                <div class="badge badge-opacity-primary">Make Payment</div>
+                            </a>
+                        {% endif %}
+                    {% else %}
+                        <div class="badge badge-opacity-warning">Waiting for the approval</div>
+                    {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            {% else %}
+            <p>You have no appointments scheduled.</p>
+          </table>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</body>
+{% endblock %}

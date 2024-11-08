@@ -1,0 +1,72 @@
+{% extends 'doctor/doctor_base.html' %}
+{% load static %}
+{% block content %}  
+  <body>
+  <div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+   {% include 'doctor/doctor_nav.html'%}
+   {% if appointments %}
+
+
+   <div class="col-lg-9 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Bordered table</h4>
+        <p class="card-description"> Add class <code>.table-bordered</code>
+        </p>
+        <div class="table-responsive pt-3">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Patient Name</th>
+                <th>Status</th>
+                <th>symptoms</th>
+                <th>Date </th>
+                <th>Time</th>
+                <th>Token</th>
+              </tr>
+            </thead>
+            <tbody>
+
+          {% for appointment in appointments %}
+
+              <tr>
+                <td> {{ appointment.patientName }}<br></td>
+                <td>
+                    <div class="badge 
+                    {% if order.status %} 
+                        badge-opacity-primary
+                    {% else %}
+                        badge-opacity-warning
+                    {% endif %}">
+                    
+                    {% if order.status %}
+                        Completed
+                    {% else %}
+                        Pending
+                    {% endif %}
+                </div>
+            </td>                  </td>
+                <td>{{ appointment.symptoms }}<br>
+                </td>
+                <td> {{ appointment.appointmentDate }}<br>
+                </td>
+                <td>{{ appointment.appointmentTime }}<br><br>
+                </td>
+                <td> {{ appointment.assigned_token }}</td>
+               
+              {% endfor %}
+       
+
+            
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <h2>No appointments found.</h2>
+    {% endif %}
+  </div>
+  </body>
+  {% endblock %}

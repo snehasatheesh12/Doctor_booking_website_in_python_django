@@ -1,0 +1,33 @@
+<!-- customer/profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Profile</title>
+</head>
+<body>
+    <h1>doctor Profile</h1>
+    
+    <div>
+        <img src="{{ profile.profile_pic.url }}" alt="Profile Picture" width="150" height="150">
+    </div>
+    <p><strong>Username:</strong> {{ profile.user.username }}</p>
+    <p><strong>First_name:</strong> {{ profile.user.first_name }}</p>
+    <p><strong>Last_name:</strong> {{ profile.user.last_name }}</p>
+    <p><strong>Email:</strong> {{ profile.user.email }}</p>
+    <p><strong>Phone Number:</strong> {{ profile.mobile }}</p>
+    <p><strong>Address:</strong> {{ profile.address }}</p>
+    <p><strong>Department:</strong> {{ profile.department }}</p>
+    <p><strong>gender:</strong> {{ profile.gender }}</p>
+    <p><strong>Zip code:</strong> {{ profile.zip_code }}</p>
+    <p><strong>City:</strong> {{ profile.city }}</p>
+    <p><strong>state:</strong> {{ profile.state }}</p>
+    <p><a href="{% url 'edit_profile_admin' %}">update your profile</a></p>
+    <br>
+    <form method="POST" action="{% url 'delete_profile_admin' %}">
+        {% csrf_token %}
+        <button type="submit">Yes, delete my profile</button>
+    </form>
+</body>
+</html>

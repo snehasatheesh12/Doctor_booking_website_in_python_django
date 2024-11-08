@@ -1,0 +1,60 @@
+{% extends 'admin/admin_base.html' %}
+{% load static %}
+{% block content %}  
+  <body>
+  <div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+   {% include 'admin/admin_nav.html'%}
+
+   <div class="col-lg-10 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Bordered table</h4>
+        <p class="card-description"> Add class <code>.table-bordered</code>
+        </p>
+        {% if appointments %}
+
+        <div class="table-responsive pt-3">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Doctor Id</th>
+                <th>Patient Id</th>
+                <th>Doctor Name</th>
+                <th>Patient Name</th>
+                <th>Symptoms</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Approve</th>
+                <th>Reject</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for a in appointments %}
+              
+              <tr>
+                <td> {{a.patientId}}</td>
+                <td>{{a.doctorId}}</td>
+                <td>{{a.doctorName}}</td>
+                <td>{{a.patientName}}</td>
+                <td>{{a.symptoms}}</td>
+                <td>{{a.appointmentDate}}</td>
+                <td>{{a.appointmentTime}}</td>
+                <td><a class="btn btn-primary btn-xs" href="{% url 'approve-patient' a.id  %}"><span class="glyphicon glyphicon-ok"></span>approve</a></td>
+                <td><a class="btn btn-danger btn-xs" href="{% url 'reject-patient' a.id  %}"><span class="glyphicon glyphicon-trash"></span>reject</a></td>
+        
+              </tr>
+              {% endfor %}
+            
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <h2>No pending appoinments.</h2>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  </body>
+  {% endblock %}

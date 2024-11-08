@@ -1,0 +1,81 @@
+{% extends 'patient/patient_base.html' %}
+{% load static %}
+{% block content %}
+<body class="with-welcome-text">
+    <div class="container-scroller">
+   {% include 'patient/patient_nav.html' %}
+   <div class="col-md-3 col-lg-3">
+</div>
+
+   <div class="col-md-6 col-lg-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Appoinment Booking</h4>
+        <p class="card-description"> Bordered layout </p>
+        <form class="forms-sample material-form bordered" action="" method="post">
+          {% csrf_token %}
+          
+          <div class="form-group">
+            <input type="date" required="required" name="appointmentDate" max="{{ tomorrow }}" />
+            <label for="input" class="control-label">Appointment Date</label><i class="bar"></i>
+        </div>
+        
+          <div class="form-group">
+            <input type="text" required="required" name="symptoms" />
+            <label for="input" class="control-label">Symptoms</label><i class="bar"></i>
+          </div>
+          <div class="mb-4 pb-2">
+            <label for="genderSelect" class="form-label"> Select the time:  </label>
+            <select class="form-select form-select" id="genderSelect" name="appointmentTime">
+              <option value="10:00 AM-10:30 AM">10:00 AM-10:30 AM</option>
+              <option value="10:30 AM-11:00 AM" >10:30 AM-11:00 AM</option>
+              <option value="11:00 AM-11:30 AM">11:00 AM-11:30 AM</option>
+              <option value="11:30 AM-12:00 AM">11:30 AM-12:00 AM</option>
+              <option value="12:00 AM-12:30 AM">12:00 AM-12:30 AM</option>
+              <option value="12:30 AM-1:00 AM">12:30 AM-1:00 AM</option>
+              <option value="2:00 AM-2:30 AM">2:00 AM-2:30 AM</option>
+              <option value="2:30 AM-3:00 AM">2:30 AM-3:00 AM</option>
+              <option value="3:00 AM-3:30 AM">3:00 AM-3:30 AM</option>
+              <option value="3:30 AM-4:00 AM">3:30 AM-4:00 AM</option>
+              <option value="4:00 AM-4:30 AM">4:00 AM-4:30 AM</option>
+              <option value="4:30 AM-5:00 AM">4:30 AM-5:00 AM</option>
+              <option value="7:00 AM-7:30 AM">7:00 AM-7:30 AM</option>
+              <option value="7:30 AM-8:00 AM">7:30 AM-8:00 AM</option>
+              <option value="8:00 AM-8:30 AM">8:00 AM-8:30 AM</option>
+              <option value="8:30 AM-9:00 AM">8:30 AM-9:00 AM</option>               
+            </select>
+          </div>
+
+          <div class="mb-4 pb-2">
+            <label for="genderSelect" class="form-label"> Department :  </label>
+            <select class="form-select form-select" id="genderSelect" name="doctorId">
+              <option selected disabled>Select your Doctor</option>
+              {% for doct in doctor %}
+            <option value="{{ doct.id }}">{{ doct.user.first_name}} - {{doct.department }}</option>
+                        {% endfor %}
+            </select>
+          </div>
+
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" checked="checked" /><i class="helper"></i>Remember me </label>
+          </div>
+          <div class="button-container">
+            <input type="submit" class="button btn btn-primary" value="Book">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-lg-3 grid-margin stretch-card">
+  </div>
+
+  {% if messages %}
+  <ul>
+      {% for message in messages %}
+      <script>alert('{{message}}')</script>
+      {% endfor %}
+  </ul>
+{% endif %}
+</body>
+{% endblock %}

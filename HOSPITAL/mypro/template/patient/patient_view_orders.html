@@ -1,0 +1,65 @@
+{% extends 'patient/patient_base.html' %}
+{% load static %}
+{% block content %}  
+  <body>
+    <style>
+      .badge-opacity-primary {
+        background-color: #007bff; 
+        color: white; 
+        padding: 0.5em 1em; 
+        border-radius: 0.25rem; 
+    }
+    </style>
+    
+  <div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+   {% include 'patient/patient_nav.html'%}
+
+   <div class="col-lg-9 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        </p>
+        <div class="table-responsive pt-3">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Booking number</th>
+                <th>status</th>
+                <th>Amount</th>
+                <th>Doctor Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in orders %}
+
+              <tr>
+                <td>{{ order.booking_number }}</td>
+                <td>
+                <div class="badge 
+                {% if order.status %} 
+                    badge-opacity-primary
+                {% else %}
+                    badge-opacity-warning
+                {% endif %}">
+                
+                {% if order.status %}
+                    Completed
+                {% else %}
+                    Pending
+                {% endif %}
+            </div>
+        </td>                
+            <td>${{ order.booking_total }}</td>
+                <td>{{order.appoinment.doctorName}}</td>
+
+              </tr>
+              {% endfor %}
+            
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  </body>
+  {% endblock %}

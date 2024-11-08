@@ -1,0 +1,60 @@
+{% extends 'patient/patient_base.html' %}
+{% load static %}
+{% block content %}  
+  <body>
+    <style>
+        .badge-opacity-primary {
+            background-color: #007bff; 
+            color: white; 
+            padding: 0.5em 1em; 
+            border-radius: 0.25rem; 
+        }
+        .badge-opacity-secondary {
+            background-color: orangered; 
+            color: white; 
+            padding: 0.5em 1em; 
+            border-radius: 0.25rem; 
+        }
+        
+    </style>
+  <div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+   {% include 'patient/patient_nav.html'%}
+
+   <div class="col-lg-10 grid-margin stretch-card">
+    <div class="card">
+        {% if doctors %}
+
+      <div class="card-body">
+        <h4 class="card-title">Avilable Doctors</h4>
+        </p>
+        <div class="table-responsive pt-3">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Doctor</th>
+                <th>Specialization</th>
+                <th>status</th>
+                <th>Booking</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for doctor in doctors %}
+              <tr>
+                <td><strong>{{ doctor.user.first_name }} {{ doctor.user.last_name }}</strong></td>
+                <td>{{ doctor.department }}</td>
+                <td> <div class="badge badge-opacity-primary">{% if doctor.status %}Available</div><div class="badge badge-opacity-danger">{% else %}Not Available</div>{% endif %}</td>
+                <td><a href="{% url 'patient_book_appointment_view' %}"><div class="badge badge-opacity-primary">Book an appoinment</div></a></td>
+              {% endfor %}
+            </tbody>
+            {% else %}
+            <p>No Doctors avilable</p>
+          </table>
+        </div>
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+  </body>
+  {% endblock %}

@@ -1,0 +1,141 @@
+{% load static %}
+<nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
+    <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+      <div class="me-3">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-bs-toggle="minimize">
+          <span class="icon-menu"></span>
+        </button>
+      </div>
+      <div>
+      
+        <a class="navbar-brand brand-logo" href="">
+          <img src="{% static 'assets/img/cover.png' %}" style="height:100px;width:600px">
+        </a>
+       
+      </div>
+    </div>
+    <div class="navbar-menu-wrapper d-flex align-items-top">
+      <ul class="navbar-nav">
+        <li class="nav-item fw-semibold d-none d-lg-block ms-0">
+          <h1 class="welcome-text">Good Morning, <span class="text-black fw-bold">{{profile.user.username}}</span></h1>
+          <h3 class="welcome-sub-text">welcome to your dashboard </h3>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto">
+       
+        <li class="nav-item d-none d-lg-block">
+          <div id="datepicker-popup" class="input-group date datepicker navbar-date-picker">
+            <span class="input-group-addon input-group-prepend border-right">
+              <span class="icon-calendar input-group-text calendar-icon"></span>
+            </span>
+            <input type="text" class="form-control">
+          </div>
+        </li>
+      
+        <li class="nav-item dropdown">
+          <a class="nav-link count-indicator" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
+            <i class="icon-bell"></i>
+            <span class="count"></span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="notificationDropdown">
+            <a class="dropdown-item py-3 border-bottom">
+              <p class="mb-0 fw-medium float-start">Check Notification</p>
+              <span class="badge badge-pill badge-primary float-end">View all</span>
+            </a>
+          
+            
+           
+            <a class="dropdown-item preview-item py-3" href="{% url 'admin_approve_doctor_view' %}">
+              <div class="preview-thumbnail">
+                <i class="mdi mdi-airballoon m-auto text-primary"></i>
+              </div>
+              <div class="preview-item-content">
+                <h6 class="preview-subject fw-normal text-dark mb-1">Approve New Doctors</h6>
+                <p class="fw-light small-text mb-0"> 2 days ago </p>
+              </div>
+            </a>
+          </div>
+        </li>
+        <li class="nav-item dropdown d-none d-lg-block user-dropdown">
+          <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+            <img class="img-xs rounded-circle" src="{{ profile.profile_pic.url }}" alt="Profile image"> </a>
+          <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+            <div class="dropdown-header text-center">
+              <!-- <img class="img-md rounded-circle" src="{{ profile.profile_pic.url }}" alt="Profile image"> -->
+              <p class="mb-1 mt-3 fw-semibold">{{ profile.user.username }}</p>
+              <p class="fw-light text-muted mb-0">{{ profile.user.email }}</p>
+            </div>
+            <a class="dropdown-item" href="{% url 'edit_profile_admin' %}"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> Edit your Profile <span class="badge badge-pill badge-danger">1</span></a>
+            <a class="dropdown-item" href="{% url 'delete_profile_admin' %}"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> Delete your Profile <span class="badge badge-pill badge-danger">1</span></a>
+
+            <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out</a>
+          </div>
+        </li>
+      </ul>
+      <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-bs-toggle="offcanvas">
+        <span class="mdi mdi-menu"></span>
+      </button>
+    </div>
+  </nav>
+  <div class="container-fluid page-body-wrapper">
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+      <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link" href="">
+            <i class="mdi mdi-grid-large menu-icon"></i>
+            <span class="menu-title">Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item nav-category"></li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'admin_add_doctor_view' %}">
+            <i class="menu-icon mdi mdi-account-plus"></i>
+            <span class="menu-title">add doctors</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'admin_view_doctor_specialisation_view' %}">
+            <i class="menu-icon mdi mdi-stethoscope"></i>
+            <span class="menu-title">view doctors specialization</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'admin_view_doctor_view' %}">
+            <i class="menu-icon mdi mdi-stethoscope"></i>
+            <span class="menu-title">view approved doctors</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'admin_view_patient_view' %}">
+            <i class="menu-icon mdi mdi-account-group"></i>
+            <span class="menu-title">view patients</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'admin-approve-patient' %}">
+            <i class="menu-icon mdi mdi-calendar-clock"></i>
+            <span class="menu-title">view pending appoinments</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'admin_change_password' %}">
+            <i class="menu-icon mdi mdi-lock-reset"></i>
+            <span class="menu-title">change passsword</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'admin_approve_doctor_view' %}">
+            <i class="menu-icon mdi mdi-lock-reset"></i>
+            <span class="menu-title">view pending doctors</span>
+          </a>
+        </li>
+    
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'handel_logout' %}">
+            <i class="menu-icon mdi mdi-logout"></i>
+            <span class="menu-title">Logout</span>
+          </a>
+        </li>
+      
+      </ul>
+    </nav>
