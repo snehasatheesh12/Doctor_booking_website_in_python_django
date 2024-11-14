@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import django_heroku
 import os
 from pathlib import Path
 
@@ -137,3 +137,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'snehasatheesh176@gmail.com'
 EMAIL_HOST_PASSWORD = 'dpmf ryqt vexk zjct' 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+django_heroku.settings(locals())
