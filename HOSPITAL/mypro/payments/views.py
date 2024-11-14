@@ -65,7 +65,8 @@ def place_order(request, appointment_id):
             country=country,
             booking_note=booking_note,
             booking_total=booking_total,
-            ip=ip
+            ip=ip,
+            status="Completed"
         )
 
         booking_number = current_date + str(order.id)

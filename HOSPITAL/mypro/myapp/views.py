@@ -140,7 +140,6 @@ def admin_change_password(request):
 
 
 
-
 @login_required
 def admin_profile_view(request):
     admin_profile = get_object_or_404(MyAdmin, user=request.user)

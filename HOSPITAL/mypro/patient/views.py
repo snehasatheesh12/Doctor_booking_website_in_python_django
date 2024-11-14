@@ -230,13 +230,17 @@ def patient_book_appointment_view(request):
 @login_required(login_url='patientlogin')
 def patient_appointments_view(request):
     profile = get_object_or_404(Patient, user=request.user)
-    patient_appointments = Appointment.objects.filter(patientId=request.user.id).order_by('-appointmentDate')
+    patient_appointments = Appointment.objects.filter(patientId=request.user.id)
+    orders={appoinment.id:Order.objects.filter(appoinment=appoinment.id).first() for appoinment in patient_appointments}
+    
+    # order = Order.objects.filter(appoinment__patientId=request.user.id)
+
     context = {
         'appointments': patient_appointments,
-        'profile':profile,
+        'profile': profile,
+        'orders': orders
     }
     return render(request, 'patient/patient_appointments.html', context)
-
 
 
 @login_required(login_url='patientlogin')
